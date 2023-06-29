@@ -623,6 +623,11 @@ PrefabInstance:
       propertyPath: gameInput
       value: 
       objectReference: {fileID: 1817909122}
+    - target: {fileID: 4962115695252503357, guid: 5152f179eeeaacb45af115083c1048fe,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8038538879422577640, guid: 5152f179eeeaacb45af115083c1048fe,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -1255,15 +1260,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8038538879431767670, guid: 5152f179eeeaacb45af115083c1048fe,
         type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 5c7eda3b7ee53374eabbd12f8aa3cba1, type: 3}
+    - target: {fileID: 8038538879431767670, guid: 5152f179eeeaacb45af115083c1048fe,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8038538879431767670, guid: 5152f179eeeaacb45af115083c1048fe,
         type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Hand_R'\n\tFrom animation clip 'Idle'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8038538879431767670, guid: 5152f179eeeaacb45af115083c1048fe,
         type: 3}

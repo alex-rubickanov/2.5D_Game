@@ -6,7 +6,6 @@ public class PlayerRotationTopDown : MonoBehaviour
 {
     [SerializeField] private LayerMask groundMask;
     private Camera mainCamera;
-    [SerializeField] private float rotationSpeed;
 
     private void Start()
     {
@@ -30,7 +29,7 @@ public class PlayerRotationTopDown : MonoBehaviour
 
             // Make the transform look in the direction.
             //transform.forward = direction;
-            transform.forward = Vector3.Lerp(transform.forward, direction, rotationSpeed / 100);
+            transform.forward = direction;
         }
     }
 
