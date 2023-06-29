@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private PlayerMovement movementScript;
+    [SerializeField] private PlayerMovementTopDown movementScript;
 
     private const string VELOCITY_X = "VelX";
     private const string VELOCITY_Z = "VelZ";

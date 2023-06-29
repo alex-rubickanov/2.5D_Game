@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementTopDown : MonoBehaviour
 {
     [SerializeField] private GameInput gameInput;
     [SerializeField] private float moveSpeed;
@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = movementVector * moveSpeed;
 
-        Debug.Log(movementVector);
     }
 
     public Vector3 GetMovementVector()
