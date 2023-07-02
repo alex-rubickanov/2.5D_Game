@@ -15,7 +15,7 @@ public class AmmoUI : MonoBehaviour
 
     private void Start()
     {
-        shootScript.OnAmmoValueChanged += ShootScript_OnAmmoValueChanged;
+        shootScript.OnShotAction += ShootScript_OnAmmoValueChanged;
 
         reloadingAnimator = reloadingIcon.GetComponent<Animator>();
         Hide(reloadingIcon);

@@ -18,12 +18,15 @@ public class ShootHandler : MonoBehaviour
     
     private int leftGunCurrentAmmo;
     private int rightGunCurrentAmmo;
-    public event EventHandler OnAmmoValueChanged;
+    public event EventHandler OnShotAction;
 
     [SerializeField] private float timeToReload;
     private bool isReloading;
 
-    [SerializeField] private GameObject shootingVFX; 
+    [SerializeField] private GameObject shootingVFX;
+
+    [SerializeField] private AudioClip gunShotSFX;
+    [SerializeField] private AudioClip reloadingSFX;
 
     private void Start()
     {
@@ -33,41 +36,47 @@ public class ShootHandler : MonoBehaviour
 
         leftGunCurrentAmmo = maxAmmoInGun;
         rightGunCurrentAmmo = maxAmmoInGun;
-        OnAmmoValueChanged?.Invoke(this, EventArgs.Empty);
+        OnShotAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void GameInput_OnReloadAction(object sender, System.EventArgs e)
     {
-        StartCoroutine(Reloading());
+        if(!isReloading) {
+            StartCoroutine(Reloading());
+        }
     }
 
     private void GameInput_OnRightShootAction(object sender, System.EventArgs e)
     {
-        if(rightGunCurrentAmmo > 0) {
+        if(rightGunCurrentAmmo > 0 && !isReloading) {
             Shoot(rightSpawner);
             rightGunCurrentAmmo--;
 
-            OnAmmoValueChanged?.Invoke(this, EventArgs.Empty);
-            GameObject particle = Instantiate(shootingVFX, rightSpawner.position, Quaternion.identity);
+            OnShotAction?.Invoke(this, EventArgs.Empty);
+
+            GameObject particle = Instantiate(shootingVFX, rightSpawner.position, rightSpawner.rotation);
+            AudioSource.PlayClipAtPoint(gunShotSFX, rightSpawner.position);
             Destroy(particle, 3f);
         }
     }
 
     private void GameInput_OnLeftShootAction(object sender, System.EventArgs e)
     {
-        if(leftGunCurrentAmmo > 0) {
+        if(leftGunCurrentAmmo > 0 && !isReloading) {
             Shoot(leftSpawner);
             leftGunCurrentAmmo--;
 
-            OnAmmoValueChanged?.Invoke(this, EventArgs.Empty);
-            GameObject particle = Instantiate(shootingVFX, leftSpawner.position, Quaternion.identity);
+            OnShotAction?.Invoke(this, EventArgs.Empty);
+
+            GameObject particle = Instantiate(shootingVFX, leftSpawner.position, leftSpawner.rotation);
+            AudioSource.PlayClipAtPoint(gunShotSFX, leftSpawner.position);
             Destroy(particle, 3f);
         }
     }
 
     private void Shoot(Transform bulletSpawnerTransform)
     {
-        Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnerTransform.position, Quaternion.identity);
+        Transform bulletTransform = Instantiate(bulletPrefab, bulletSpawnerTransform.position, rightSpawner.rotation);
         bulletTransform.GetComponent<Rigidbody>().AddForce(bulletSpawnerTransform.forward * bulletSpeed, ForceMode.Impulse);
 
         Destroy(bulletTransform.gameObject, 3f);
@@ -80,13 +89,14 @@ public class ShootHandler : MonoBehaviour
 
     private IEnumerator Reloading()
     {
+        AudioSource.PlayClipAtPoint(reloadingSFX, gameObject.transform.position);
         isReloading = true;
         yield return new WaitForSeconds(timeToReload);
 
         leftGunCurrentAmmo = maxAmmoInGun;
         rightGunCurrentAmmo = maxAmmoInGun;
         isReloading = false;
-        OnAmmoValueChanged?.Invoke(this, EventArgs.Empty);
+        OnShotAction?.Invoke(this, EventArgs.Empty);
     }
 
     public bool IsReloading()
