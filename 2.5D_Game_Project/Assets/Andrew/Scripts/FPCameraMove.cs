@@ -7,7 +7,7 @@ public class FPCameraMove : MonoBehaviour
     public Transform camPos;
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         transform.position = camPos.position;
     }
