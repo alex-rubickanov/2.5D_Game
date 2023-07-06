@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerRotationTopDown : MonoBehaviour
 {
     [SerializeField] private LayerMask groundMask;
-    private Camera mainCamera;
+    [SerializeField] private Camera topDownCam;
 
     private void Start()
     {
-        mainCamera = Camera.main;
+        topDownCam = Camera.main;
     }
 
     private void Update()
@@ -35,7 +35,7 @@ public class PlayerRotationTopDown : MonoBehaviour
 
     private (bool success, Vector3 position) GetMousePosition()
     {
-        var ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        var ray = topDownCam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask)) {
             // The Raycast hit something, return with the position.
